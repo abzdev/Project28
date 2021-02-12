@@ -7,6 +7,7 @@ const Constraint = Matter.Constraint;
 var treeObj, stoneObj,groundObject, launcherObject;
 var mango1, mango2, mango3, mango4;
 var world, boy, stone, string;
+var gameState = 'attached';
 
 function preload() {
 	boy=loadImage("images/boy.png");
@@ -42,7 +43,12 @@ function setup() {
 
 function draw() {
 	background(230);
-	//Add code for displaying text here!
+
+	push();
+	textSize(30);
+	text('Press "Space" to get a new stone.', 30,50);
+	pop();
+
 	image(boy,200,340,200,300);
 
 	if(string.bodyA) {
@@ -66,6 +72,7 @@ function draw() {
 
 function mouseReleased() {
 	string.bodyA = null;
+	gameState = 'flying';
 }
 
 function mouseDragged() {
@@ -76,6 +83,7 @@ function keyPressed() {
 	if(keyCode === 32) {
 		string.bodyA = stone.body;
 		Body.setPosition(stone.body,{x: 220, y: 400});
+		gameState = 'attached';
 	}
 }
 
